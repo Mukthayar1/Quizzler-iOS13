@@ -9,11 +9,14 @@
 import Foundation
 
 struct Questions {
-    let QuestionText : String
-    let RightAnswer : String
     
-   init(q : String , a : String) {
-        QuestionText = q
-        RightAnswer = a
+    let QuestionText : String;
+    let Options : [String];
+    let RightAnswer : String;
+    
+    init(quest : String , option : [String] , correctAnswer:String) {
+        QuestionText = quest
+        Options = option
+        RightAnswer = correctAnswer
     }
 }

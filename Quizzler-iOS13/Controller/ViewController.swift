@@ -15,19 +15,22 @@ class ViewController: UIViewController {
     @IBOutlet weak var TrueButton: UIButton!
     @IBOutlet weak var FalseButton: UIButton!
     @IBOutlet weak var QuestionNumber: UILabel!
+    @IBOutlet weak var TotalScrores: UILabel!
     
     var quizzBrain = QuizzBrain()
         
     override func viewDidLoad() {
         super.viewDidLoad()
         QuestionLabel.text = quizzBrain.quizzArray[quizzBrain.QuestionNo].QuestionText;
-        QuestionNumber.text = "QUESTION NO " + String(quizzBrain.QuestionNo+1)
+        QuestionNumber.text = "QUESTION NO " + String(quizzBrain.QuestionNo+1);
+        TotalScrores.text = ""
+        quizzBrain.CorrectAnswer = 0
     }
 
     @IBAction func ButtonPress(_ sender: UIButton) {
         
         let UserAnswer = sender.currentTitle!;
-        self.quizzBrain.checkUserAnswer(userAnswer: UserAnswer,sender: sender)
+        self.quizzBrain.checkUserAnswer(userAnswer: UserAnswer,sender: sender,TotalScrores:TotalScrores)
         
         Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(moveNext), userInfo: ["sender": sender], repeats: false)
     }
@@ -39,7 +42,7 @@ class ViewController: UIViewController {
             return
         }
         
-        quizzBrain.UpdateQuestion(sender: sender, QuestionLabel: QuestionLabel, ProgressBar: ProgressBar, TrueButton: TrueButton, FalseButton: FalseButton, QuestionNumber: QuestionNumber)
+        quizzBrain.UpdateQuestion(sender: sender, QuestionLabel: QuestionLabel, ProgressBar: ProgressBar, TrueButton: TrueButton, FalseButton: FalseButton, QuestionNumber: QuestionNumber,TotalScrores:TotalScrores)
     }
 }
 

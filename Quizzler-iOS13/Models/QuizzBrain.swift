@@ -11,26 +11,28 @@ import UIKit
 
 struct QuizzBrain {
     let quizzArray = [
-        Questions(q: "A slug's blood is green.", a: "True"),
-        Questions(q: "Approximately one quarter of human bones are in the feet.", a: "True"),
-        Questions(q: "The total surface area of two human lungs is approximately 70 square metres.", a: "True"),
-        Questions(q: "In West Virginia, USA, if you accidentally hit an animal with your car, you are free to take it home to eat.", a: "True"),
-        Questions(q: "In London, UK, if you happen to die in the House of Parliament, you are technically entitled to a state funeral, because the building is considered too sacred a place.", a: "False"),
-        Questions(q: "It is illegal to pee in the Ocean in Portugal.", a: "True"),
-        Questions(q: "You can lead a cow down stairs but not up stairs.", a: "False"),
-        Questions(q: "Google was originally called 'Backrub'.", a: "True"),
-        Questions(q: "Buzz Aldrin's mother's maiden name was 'Moon'.", a: "True"),
-        Questions(q: "The loudest sound produced by any animal is 188 decibels. That animal is the African Elephant.", a: "False"),
-        Questions(q: "No piece of square dry paper can be folded in half more than 7 times.", a: "False"),
-        Questions(q: "Chocolate affects a dog's heart and nervous system; a few ounces are enough to kill a small dog.", a: "True")
+        Questions(quest: "Which is the largest organ in the human body?", option: ["Heart", "Skin", "Large Intestine"], correctAnswer: "Skin"),
+        Questions(quest: "Five dollars is worth how many nickels?", option: ["25", "50", "100"], correctAnswer: "100"),
+        Questions(quest: "What do the letters in the GMT time zone stand for?", option: ["Global Meridian Time", "Greenwich Mean Time", "General Median Time"], correctAnswer: "Greenwich Mean Time"),
+        Questions(quest: "What is the French word for 'hat'?", option: ["Chapeau", "Écharpe", "Bonnet"], correctAnswer: "Chapeau"),
+        Questions(quest: "In past times, what would a gentleman keep in his fob pocket?", option: ["Notebook", "Handkerchief", "Watch"], correctAnswer: "Watch"),
+        Questions(quest: "How would one say goodbye in Spanish?", option: ["Au Revoir", "Adiós", "Salir"], correctAnswer: "Adiós"),
+        Questions(quest: "Which of these colours is NOT featured in the logo for Google?", option: ["Green", "Orange", "Blue"], correctAnswer: "Orange"),
+        Questions(quest: "What alcoholic drink is made from molasses?", option: ["Rum", "Whisky", "Gin"], correctAnswer: "Rum"),
+        Questions(quest: "What type of animal was Harambe?", option: ["Panda", "Gorilla", "Crocodile"], correctAnswer: "Gorilla"),
+        Questions(quest: "Where is Tasmania located?", option: ["Indonesia", "Australia", "Scotland"], correctAnswer: "Australia")
+
         
     ];
     
     var QuestionNo = 0;
+    var CorrectAnswer = 0;
     
-    func checkUserAnswer(userAnswer: String,sender: UIButton) {
+   mutating func checkUserAnswer(userAnswer: String,sender: UIButton,TotalScrores:UILabel) {
         if(userAnswer == quizzArray[QuestionNo].RightAnswer){
-            sender.backgroundColor = UIColor.green
+            sender.backgroundColor = UIColor.green;
+            self.CorrectAnswer += 1;
+            TotalScrores.text = "Total Score = \(CorrectAnswer*10)"
         }
         else {
             sender.backgroundColor = UIColor.red
@@ -46,7 +48,7 @@ struct QuizzBrain {
         ProgressBar.setProgress(progress / 100, animated: true)
     }
     
-    mutating func UpdateQuestion(sender: UIButton,QuestionLabel: UILabel,ProgressBar: UIProgressView,TrueButton: UIButton!,FalseButton: UIButton,QuestionNumber: UILabel) {
+    mutating func UpdateQuestion(sender: UIButton,QuestionLabel: UILabel,ProgressBar: UIProgressView,TrueButton: UIButton!,FalseButton: UIButton,QuestionNumber: UILabel,TotalScrores:UILabel) {
         TrueButton.backgroundColor = UIColor.clear;
         FalseButton.backgroundColor = UIColor.clear;
         QuestionNumber.text = "QUESTION NO " + String(self.QuestionNo+1)
@@ -58,6 +60,7 @@ struct QuizzBrain {
         } else {
             QuestionLabel.text = self.quizzArray[0].QuestionText
             self.QuestionNo = 0
+            TotalScrores.text = ""
         }
         
         updateProgressBar(ProgressBar:ProgressBar)
